@@ -1,24 +1,22 @@
-const express = require("express");
-const path = require("path");
-const favicon = require("serve-favicon");
-const logger = require("morgan");
-require("dotenv").config();
-require("./config/database");
+const { Pool } = require('pg');
+const express = require('express');
 
+const port = process.env.PORT || 8080;
 const app = express();
 
-app.use(logger("dev"));
-app.use(express.json());
-app.use(favicon(path.join(__dirname, "build", "favicon.ico")));
-app.use(express.static(path.join(__dirname, "build")));
-app.use("/api/users", require("./routes/api/users"));
-
-app.get("/*", function (req, res) {
-res.sendFile(path.join(__dirname, "build", "index.html"));
+app.use(express.static(__dirname + "/dist/"));
+app.get(/.*/, function(req, res) {
+    res.sendFile(__dirname + "/dist/index.html");
 });
 
-const port = process.env.PORT || 3001;
+app.listen(port);
 
-app.listen(port, function () {
-console.log("Server started...");
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
 });
+
+
+console.log("Server started...")
