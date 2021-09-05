@@ -1,5 +1,7 @@
+const { Pool } = require('pg');
 const express = require('express');
-const port = process.env.PORT;
+
+const port = process.env.PORT || 8080;
 const app = express();
 
 app.use(express.static(__dirname + "/dist/"));
@@ -8,5 +10,13 @@ app.get(/.*/, function(req, res) {
 });
 
 app.listen(port);
+
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false
+  }
+});
+
 
 console.log("Server started...")
