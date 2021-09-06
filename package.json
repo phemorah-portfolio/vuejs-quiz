@@ -32,8 +32,8 @@
     "eslint": "^7.32.0",
     "eslint-plugin-vue": "^7.17.0",
     "nodemon": "^2.0.12",
-    "vue-template-compiler": "^2.6.11",       
-    "webpack": "^5.52.0",
+    "vue-template-compiler": "^2.6.11",
+    "webpack": "^4.46.0",
     "webpack-dev-server": "^4.1.0"
   },
   "eslintConfig": {
