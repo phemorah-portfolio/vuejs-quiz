@@ -1,22 +1,35 @@
 <template>
   <div id="app">
-    <Header 
+    <Header
       :numCorrect="numCorrect"
       :numTotal="numTotal"
     />
-    
+
     <b-container class="bv-example-row">
       <b-row>
         <b-col sm="6" offset="3">
-          <QuestionBox 
+
+
+        <b-card
+          title="VueJs Quiz"
+          img-src="https://picsum.photos/400/150/?image=20"
+          img-alt="Image"
+          img-top
+          tag="article"
+          style="max-width: 50rem;"
+          class="mb-2"
+          bg-variant="dark" text-variant="white"
+        >
+          <QuestionBox
             v-if="questions.length"
             :currentQuestion="questions[index]"
             :next="next"
             :increment="increment"
           />
+        </b-card>
         </b-col>
       </b-row>
-    </b-container>    
+    </b-container>
   </div>
 </template>
 
@@ -38,7 +51,7 @@ export default {
       numTotal: 0
     }
   },
-  mounted: function() { 
+  mounted: function() {
     fetch('https://opentdb.com/api.php?amount=10&type=multiple', {
       method: 'get'
     })
@@ -48,7 +61,7 @@ export default {
     .then((jsonData) => {
       this.questions = jsonData.results
     })
-  }, 
+  },
   methods: {
     next(){
       this.index++
